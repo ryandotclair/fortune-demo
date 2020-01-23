@@ -46,7 +46,7 @@ spec:
         app: fortune-app
     spec:
       containers:
-      - image: ryandotclair/fortune-demo:1.0
+      - image: ryandotclair/fortune:1.0
         name: fortune-app
         ports:
         - containerPort: 8080
