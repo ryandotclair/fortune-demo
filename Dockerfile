@@ -1,8 +1,6 @@
-FROM openjdk:8-jre-alpine
-
+#FROM openjdk:8-jre-alpine
+FROM bitnami/java:1.8.242-ol-7-r0-prod
 LABEL Owner="Ryan Clair"
-
-RUN apk add --no-cache curl
 
 ADD target/fortune-0.0.1-SNAPSHOT.jar app.jar
 
