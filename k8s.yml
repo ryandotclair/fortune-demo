@@ -47,7 +47,6 @@ spec:
           prometheus.io/scrape: "true"
         labels:
           app: fortune-app
-      spec:
     spec:
       containers:
       - image: harbor.corp.local/library/fortune:1.0
