@@ -47,16 +47,16 @@ spec:
           prometheus.io/scrape: "true"
         labels:
           app: fortune-app
-    spec:
-      containers:
-      - image: harbor.corp.local/library/fortune:1.0
-        name: fortune-app
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        env:
-        - name: SPRING_REDIS_HOST
-          value: "redis.default.svc.cluster.local"
+      spec:
+        containers:
+        - image: harbor.corp.local/library/fortune:1.0
+          name: fortune-app
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+          - name: SPRING_REDIS_HOST
+            value: "redis.default.svc.cluster.local"
 ---
 apiVersion: apps/v1
 kind: StatefulSet
