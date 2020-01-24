@@ -56,7 +56,7 @@ spec:
             protocol: TCP
           env:
           - name: SPRING_REDIS_HOST
-            value: "redis.default.svc.cluster.local"
+            value: "redis.fortune-qa.svc.cluster.local"
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -81,3 +81,6 @@ spec:
         ports:
         - containerPort: 6379
           protocol: TCP
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
