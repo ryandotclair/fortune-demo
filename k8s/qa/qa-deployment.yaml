@@ -1,0 +1,37 @@
+---
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: fortune-app
+    namespace: fortune-qa
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: fortune-app
+    template:
+      metadata:
+        name: fortune-app
+        annotations:
+          prometheus.io/path: "/actuator/prometheus"
+          prometheus.io/port: "8080"
+          prometheus.io/scrape: "true"
+        labels:
+          app: fortune-app
+      spec:
+        containers:
+        - image: harbor.corp.local/library/fortune:1.0
+          name: fortune-app
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          env:
+          - name: SPRING_REDIS_HOST
+            value: "redis.fortune-qa.svc.cluster.local"
+          readinessProbe:
+            httpGet:
+              path: /all-fortunes.html
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 30

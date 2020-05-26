@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  namespace: fortune-qa
+spec:
+  replicas: 1
+  serviceName: "redis"
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      name: redis
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: harbor.corp.local/library/redis:1.0
+        name: redis
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"

@@ -61,7 +61,10 @@ public class BackendController {
 
         List<Fortune> fortunes = new ArrayList<>();
         _repository.findAll().forEach(fortune -> fortunes.add(fortune));
-        //try { Thread.sleep(100); } catch (InterruptedException ex) {ex.printStackTrace();}
+        // cpu load for 20 minutes
+        // ********* THIS PART WAS ADDED BY HOWARD **********
+        // load(1, 20, 300000);
+        // **************************************************
         LOG.info("Retrieved " + fortunes.size() + " fortunes");
         return Collections.unmodifiableList(fortunes);
     }
@@ -82,5 +85,58 @@ public class BackendController {
     @CrossOrigin
     public void kill() {
         System.exit(-1);
+    }
+    
+    /**
+     * loadgen codes
+     * duration is in milliseconds (so, 30,000 is 30 sec)
+     */
+    private void load(int core, int threadsPerCore, long duration) {
+        int numCore = core;
+        int numThreadsPerCore = threadsPerCore;
+        double load = 0.9;
+        for (int thread = 0; thread < numCore * numThreadsPerCore; thread++) {
+            new BusyThread("Thread" + thread, load, duration).start();
+        }
+    }
+    
+    /**
+     * Thread that actually generates the given load
+     * @author Sriram
+     */
+    private static class BusyThread extends Thread {
+        private double load;
+        private long duration;
+
+        /**
+         * Constructor which creates the thread
+         * @param name Name of this thread
+         * @param load Load % that this thread should generate
+         * @param duration Duration that this thread should generate the load for
+         */
+        public BusyThread(String name, double load, long duration) {
+            super(name);
+            this.load = load;
+            this.duration = duration;
+        }
+
+        /**
+         * Generates the load when run
+         */
+        @Override
+        public void run() {
+            long startTime = System.currentTimeMillis();
+            try {
+                // Loop for the given duration
+                while (System.currentTimeMillis() - startTime < duration) {
+                    // Every 100ms, sleep for the percentage of unladen time
+                    if (System.currentTimeMillis() % 100 == 0) {
+                        Thread.sleep((long) Math.floor((1 - load) * 100));
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
