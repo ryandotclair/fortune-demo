@@ -19,15 +19,28 @@ management:
       show-components: always
   metrics:
     export:
-      prometheus:
-        enabled: true
-    distribution:
-      percentiles-histogram:
-        "[http.server.requests]": true
-      sla:
-        "[http.server.requests]": 10ms, 100ms, 500ms
-      percentiles:
-        "[http.server.requests]": 0.50, 0.75, 0.90, 0.95, 0.98, 0.99, 0.999, 1.0
+      wavefront:
+        api-token: "1411f377-5a14-4770-adc1-d24c47b0ac3f"
+        uri: "https://surf.wavefront.com/"
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+    endpoint:
+      health:
+        show-details: always
+    # distribution:
+    #   percentiles-histogram:
+    #     "[http.server.requests]": true
+    #   sla:
+    #     "[http.server.requests]": 10ms, 100ms, 500ms
+    #   percentiles:
+    #     "[http.server.requests]": 0.50, 0.75, 0.90, 0.95, 0.98, 0.99, 0.999, 1.0
+wavefront:
+  freemium-account: false
+  application:
+    name: fortune
+
 ---
 spring:
   profiles: cloud

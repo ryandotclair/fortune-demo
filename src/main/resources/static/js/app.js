@@ -1,20 +1,20 @@
-
+toggleSwitch.addEventListener('change', switchTheme, false);
 function loadOne() {
     console.log("Getting random fortune");
     $.ajax({
         url: "/fortune",
         success: function (data) {
-           var container = $('#fortune');
-           console.log("Adding Fortune: " + data);
-           if(data) {
-             container.append("<p>" + data.text + "</p>");
-           } else {
-             container.append("<p>You future is murky...</p>");
-           }
-         },
-         error: function () {
-           var container = $('#fortune');
-           container.append("<p>You future is murky...</p>");
+            var container = $('#fortune');
+            console.log("Adding Fortune: " + data);
+            if(data) {
+                container.append("<p>" + data.text + "</p>");
+            } else {
+                container.append("<p>Your future is murky...</p>");
+            }
+        },
+        error: function () {
+            var container = $('#fortune');
+            container.append("<p>Your future is murky...</p>");
         }
     });
 }

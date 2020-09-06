@@ -1,5 +1,6 @@
 applications:
-- name: fortune
-  instances: 2
-  buildpack: java_buildpack_offline
+- name: qa
+  instances: 1
   path: target/fortune-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_REDIS_HOST: redis.qa-redis.svc.cluster.local

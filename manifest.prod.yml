@@ -1,0 +1,6 @@
+applications:
+- name: fortune
+  instances: 2
+  path: target/fortune-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_REDIS_HOST: redis.prod-redis.svc.cluster.local

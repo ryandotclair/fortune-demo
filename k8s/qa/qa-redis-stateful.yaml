@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: redis
-  namespace: fortune-qa
+  namespace: qa-redis
 spec:
   replicas: 1
   serviceName: "redis"
